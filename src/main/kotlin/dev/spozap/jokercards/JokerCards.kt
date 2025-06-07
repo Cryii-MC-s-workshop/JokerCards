@@ -1,5 +1,6 @@
 package dev.spozap.jokercards
 
+import dev.spozap.jokercards.commands.CardCommands
 import dev.spozap.jokercards.listeners.CardListeners
 import dev.spozap.jokercards.managers.JokerCardsManager
 import org.bukkit.plugin.java.JavaPlugin
@@ -18,8 +19,8 @@ class JokerCards : JavaPlugin() {
     override fun onEnable() {
         INSTANCE = this
 
-        initCommands()
         initManagers()
+        initCommands()
         initEvents()
     }
 
@@ -30,6 +31,8 @@ class JokerCards : JavaPlugin() {
     private fun initCommands() {
         val lamp: Lamp<BukkitCommandActor> = BukkitLamp.builder(this)
             .build()
+
+        lamp.register(CardCommands(jokerCardsManager))
     }
 
     private fun initManagers() {
