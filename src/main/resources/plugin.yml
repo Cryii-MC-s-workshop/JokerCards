@@ -1,4 +1,4 @@
 name: JokerCards
 version: '1.0-SNAPSHOT'
-main: dev.spozap.JokerCards
+main: dev.spozap.jokercards.JokerCards
 api-version: '1.21'
