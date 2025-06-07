@@ -27,13 +27,18 @@ tasks {
         // Configure the Minecraft version for our task.
         // This is the only required confi  guration besides applying the plugin.
         // Your plugin's jar (or shadowJar if present) will be used automatically.
-        minecraftVersion("1.21")
+        minecraftVersion("1.21.4")
     }
 }
 
 val targetJavaVersion = 21
 kotlin {
     jvmToolchain(targetJavaVersion)
+
+    compilerOptions {
+        javaParameters = true
+    }
+
 }
 
 tasks.build {
@@ -51,4 +56,17 @@ tasks.processResources {
     filesMatching("plugin.yml") {
         expand(props)
     }
+}
+
+tasks.withType(xyz.jpenilla.runtask.task.AbstractRun::class) {
+    javaLauncher = javaToolchains.launcherFor {
+        vendor = JvmVendorSpec.JETBRAINS
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+    jvmArgs("-XX:+AllowEnhancedClassRedefinition")
+}
+
+dependencies {
+    implementation("io.github.revxrsal:lamp.common:4.0.0-rc.12")
+    implementation("io.github.revxrsal:lamp.bukkit:4.0.0-rc.12")
 }
