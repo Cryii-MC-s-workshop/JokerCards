@@ -4,15 +4,24 @@ import dev.spozap.jokercards.JokerCards
 import dev.spozap.jokercards.constants.CardConstants
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
 open class JokerCard(
-    val id: String
+    val id: String,
 ) {
 
-    open fun use(player: Player) {}
+    val itemStack: ItemStack
+
+    init {
+        itemStack = generate()
+    }
+
+    open fun use(player: Player) {
+        player.playSound(player, Sound.BLOCK_BELL_USE, 1f, 1f)
+    }
 
     // TODO: Custom amount
     fun generate(): ItemStack {
